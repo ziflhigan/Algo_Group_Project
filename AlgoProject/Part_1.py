@@ -17,13 +17,13 @@ class Graph:
         :param node1: First node in the pair to connect.
         :param node2: Second node in the pair to connect.
         """
-        # If the nodes are not in the adjacency list, initialize them with an empty list
+        # if the nodes are not in the adjacency list, initialize them with an empty list
         if node1 not in self.adj_list:
             self.adj_list[node1] = []
         if node2 not in self.adj_list:
             self.adj_list[node2] = []
 
-        # Add the node2 as a neighbor of node1 and vice versa since the graph is undirected
+        # add the node2 as a neighbor of node1 and vice versa since the graph is undirected
         self.adj_list[node1].append(node2)
         self.adj_list[node2].append(node1)
 
@@ -40,7 +40,6 @@ class Graph:
         """
         g = nx.Graph(self.adj_list)
 
-        # Draw the graph
         pos = nx.spring_layout(g)
         nx.draw(g, pos, with_labels=True, node_size=700, node_color="lightblue", font_size=10)
 
@@ -62,7 +61,7 @@ class Graph:
                 visited.append(current_node)
                 adjacent_nodes = self.adj_list.get(current_node, [])  # get or default
 
-                # Add adjacent, unvisited nodes to the queue
+                # add adjacent, unvisited nodes to the queue
                 for next_node in adjacent_nodes:
                     if next_node not in visited:
                         queue.append(next_node)
@@ -77,16 +76,15 @@ class Graph:
         """
         visited = set()
         queue = deque([start_node])
-        g = nx.Graph(self.adj_list)  # initialize network graph with our own
+        g = nx.Graph(self.adj_list)
 
-        pos = nx.spring_layout(g)  # positions for all nodes
+        pos = nx.spring_layout(g)
 
-        # Function to draw the graph
         def draw_graph(highlight_nodes):
-            plt.clf()  # clear the plot to redraw
+            plt.clf()
             nx.draw(g, pos, with_labels=True, node_size=500, node_color="lightblue", font_size=10)
             nx.draw_networkx_nodes(g, pos, nodelist=highlight_nodes, node_color='red')
-            plt.pause(1)  # pause to show the updated graph
+            plt.pause(1)
 
         draw_graph([start_node])
 
@@ -94,15 +92,14 @@ class Graph:
             current_node = queue.popleft()
             if current_node not in visited:
                 visited.add(current_node)
-                draw_graph(list(visited))  # update drawing with the current visited node
+                draw_graph(list(visited))
                 queue.extend([node for node in self.adj_list[current_node] if node not in visited])
 
-        plt.show()  # display
+        plt.show()
 
 
 graph = Graph()
 
-# Add edges as the floor plan
 graph.add_undirected_edge(1, 2)
 graph.add_undirected_edge(2, 3)
 graph.add_undirected_edge(3, 8)
@@ -130,11 +127,10 @@ graph.add_undirected_edge(20, 19)
 graph.add_undirected_edge(19, 14)
 
 
-# graph.print_adj_list()
+graph.print_adj_list()
 graph.draw_graph()
 
-# Perform BFS and print all completed paths
 traversal_result = graph.bfs_traversal(1)
 print("BFS Traversal from chamber 1:", traversal_result)
 
-graph.bfs_visualization(1)
+# graph.bfs_visualization(1)
