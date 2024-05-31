@@ -133,4 +133,4 @@ graph.draw_graph()
 traversal_result = graph.bfs_traversal(1)
 print("BFS Traversal from chamber 1:", traversal_result)
 
-# graph.bfs_visualization(1)
+graph.bfs_visualization(1)

@@ -29,11 +29,13 @@ islands = [
     {"name": "Middle", "land_condition": "inhabited_area", "wild_animal": "no_wild_animals"}
 ]
 
+
 def calculate_total_risk(island):
     land_risk = land_conditions[island["land_condition"]]
     animal_risk = wild_animals[island["wild_animal"]]
     total_risk = (land_risk * weights["land_condition"]) + (animal_risk * weights["wild_animal"])
     return total_risk
+
 
 def find_safest_island(islands):
     min_risk = float('inf')
@@ -44,6 +46,7 @@ def find_safest_island(islands):
             min_risk = total_risk
             safest_island = island
     return safest_island
+
 
 safest_island = find_safest_island(islands)
 print(f"The safest island is: {safest_island['name']} with a total risk of {calculate_total_risk(safest_island)}")
